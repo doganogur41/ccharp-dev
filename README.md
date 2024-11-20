@@ -1,2 +1,0 @@
-# ccharp-dev
-ödev
