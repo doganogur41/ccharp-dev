@@ -1,26 +1,25 @@
+﻿// See https://aka.ms/new-console-template for more information
+Console.WriteLine("Hello, World!");
 ﻿using System;
+
+ilk ödev
+using System;
 
 class Program
 {
-    static double HesaplaUcgenAlani()
+    static void Main()
     {
-        Console.Write("Üçgenin taban uzunluğunu girin: ");
-        double taban = Convert.ToDouble(Console.ReadLine());
+        Console.Write("Birinci sayıyı girin: ");
+        int sayi1 = Convert.ToInt32(Console.ReadLine());
 
-        Console.Write("Üçgenin yüksekliğini girin: ");
-        double yukseklik = Convert.ToDouble(Console.ReadLine());
-
-        double alan = (taban * yukseklik) / 2;
-        return alan;
-    }
-
-    static void Main(string[] args)
-    {
-        double ucgenAlani = HesaplaUcgenAlani();
-        Console.WriteLine("Üçgenin alanı: " + ucgenAlani);
+        Console.Write("İkinci sayıyı girin: ");
+        int sayi2 = Convert.ToInt32(Console.ReadLine());
+        int fark = sayi1 - sayi2;
+        Console.WriteLine($"İki sayının farkı: {fark}");
     }
 }
 
+ikinci ödev
 using System;
 
 class Program
@@ -28,161 +27,77 @@ class Program
     static void Main()
     {
         
-        int[] sayilar = { 10, 25, 7, 40, 15 };
-
-        int enBuyukDeger = EnBuyukDegeriBul(sayilar);
-        Console.WriteLine("Dizideki en büyük değer: " + enBuyukDeger);
-    }
-    static int EnBuyukDegeriBul(int[] dizi)
-    {
-        int enBuyuk = dizi[0];
-
-        foreach (int sayi in dizi)
-        {
-            if (sayi > enBuyuk;
-                 {
-                enBuyuk = sayi;
-            }
-        }
-
-        using System;
-
-class Program
-    {
-        static int CalculateSum(int a, int b)
-        {
-            return a + b;
-        }
-        static double CalculateSum(double a, double b)
-        {
-            return a + b;
-        }
-        static int CalculateSum(int a, int b, int c)
-        {
-            return a + b + c;
-        }
-
-        static void Main()
-        {
-            
-            Console.WriteLine("İki int sayının toplamı: " + CalculateSum(3, 5)); // int + int
-            Console.WriteLine("İki double sayının toplamı: " + CalculateSum(3.5, 5.2)); // double + double
-            Console.WriteLine("Üç int sayının toplamı: " + CalculateSum(1, 2, 3)); // int + int + int
-        }
+        Console.Write("Bir sayı girin: ");
+        double sayi = Convert.ToDouble(Console.ReadLine());
+        double kare = sayi * sayi;
+        Console.WriteLine($"Girdiğiniz sayının karesi: {kare}");
     }
 
 
-    def fibonacci(n):
-    # Fibonacci dizisinin ilk iki elemanı: 0 ve 1
-    if n <= 1:
-        return n
-    else:
-        return fibonacci(n-1) + fibonacci(n-2)
 
-
-        using System;
+    üçüncü ödev
+using System;
 
 class Program
 {
-    static double OrtalamaHesapla(params double[] sayilar)
-    {
-        if (sayilar.Length == 0)
-        {
-            throw new ArgumentException("En az bir sayı girmelisiniz.");
-        }
-        double toplam = 0;
-        foreach (var sayi in sayilar)
-        {
-            toplam += sayi;
-        }
-        return toplam / sayilar.Length;
-    }
-
     static void Main()
     {
-        try
-        {
-            double ortalama = OrtalamaHesapla(10.5, 20.3, 30.7, 40.2);
-            Console.WriteLine("Ortalama: " + ortalama);
+        int sayi = 10;
+        int bolen = 3;
+        int kalan = sayi % bolen;
+        Console.WriteLine($"{sayi} sayısının {bolen} ile bölümünden kalan: {kalan}");
+    }
+}
 
 
 
-
-            using System;
+dördüncü ödev
+using System;
 
 class Program
+{
+    static void Main()
     {
-        static int Topla(int[] dizi, int filtre)
-        {
-            int toplam = 0;
-            foreach (int eleman in dizi)
-            {
-                if (eleman > filtre)
-                {
-                    toplam += eleman; 
-                }
-            }
+        Console.Write("Birinci sayıyı girin: ");
+        int sayi1 = Convert.ToInt32(Console.ReadLine());
 
-            return toplam;  
-        }
+        Console.Write("İkinci sayıyı girin: ");
+        int sayi2 = Convert.ToInt32(Console.ReadLine());
 
-        static void Main()
-        {
-            int[] dizi = { 1, 5, 10, 3, 7, 8 };  
-            int filtre = 4;  
+        Console.Write("Üçüncü sayıyı girin: ");
+        int sayi3 = Convert.ToInt32(Console.ReadLine());
 
-            int sonuc = Topla(dizi, filtre);  
-
-            Console.WriteLine("Filtre değerinden büyük elemanların toplamı: " + sonuc);
-        }
+        Console.Write("Dördüncü sayıyı girin: ");
+        int sayi4 = Convert.ToInt32(Console.ReadLine());
+        int toplam = sayi1 + sayi2 + sayi3 + sayi4;
+        int carpim = sayi1 * sayi2 * sayi3 * sayi4;
+        Console.WriteLine($"Girilen sayıların toplamı: {toplam}");
+        Console.WriteLine($"Girilen sayıların çarpımı: {carpim}");
     }
+}
 
 
 
-
-
-    def yas_farki(yas= 18):
-    return yas - 18
-
-kullanım:
-print(yas_farki(25))  : 7
-
-
-
-
-        using System;
-using System.Collections.Generic;
+beşinci ödev
+using System;
 
 class Program
+{
+    static void Main()
     {
-        static List<string> FiltreleUzunElemanlar(string[] dizi)
+        Console.Write("Birinci sayıyı girin: ");
+        double sayi1 = Convert.ToDouble(Console.ReadLine());
+
+        Console.Write("İkinci sayıyı girin: ");
+        double sayi2 = Convert.ToDouble(Console.ReadLine());
+        if (sayi2 != 0)
         {
-            List<string> sonuc = new List<string>();
-
-            foreach (string eleman in dizi)
-            {
-                if (eleman.Length > 5)
-                {
-                    sonuc.Add(eleman);
-                }
-            }
-
-            return sonuc;
+            double bolum = sayi1 / sayi2;
+            Console.WriteLine($"Girilen sayıların bölümü: {bolum}");
         }
-
-        static void Main()
+        else
         {
-            string[] dizi = { "apple", "banana", "kiwi", "strawberry", "pear" };
-
-            List<string> uzunElemanlar = FiltreleUzunElemanlar(dizi);
-            foreach (var eleman in uzunElemanlar)
-            {
-                Console.WriteLine(eleman);
-            }
+            Console.WriteLine("Bir sayıyı sıfıra bölemezsiniz.");
         }
     }
-
-    print(yas_farki())  : 0
-
-
-
+}
