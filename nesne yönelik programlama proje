@@ -326,7 +326,11 @@ class Program
         {
             new SosyalSorumlulukProjesi { Ad = "Çevre Temizliği", Aciklama = "Mahallemizde çevre temizliği yapmak." },
             new SosyalSorumlulukProjesi { Ad = "Yardım Kampanyası", Aciklama = "Kış aylarında ihtiyaç sahiplerine giysi yardımı yapmak." },
-            new SosyalSorumlulukProjesi { Ad = "Hayvan Barınağı Ziyareti", Aciklama = "Hayvan barınağındaki dostlarımıza mama vermek." }
+            new SosyalSorumlulukProjesi { Ad = "Hayvan Barınağı Ziyareti", Aciklama = "Hayvan barınağındaki dostlarımıza mama vermek." },
+            new SosyalSorumlulukProjesi { Ad = "Fidan Ekimi", Aciklama = "Doğal hayat ortamımızı rahatlatmak." },
+            new SosyalSorumlulukProjesi { Ad = "Huzurevi", Aciklama = "Büyüklerimizi yanlız bırakmamak." },
+
+
         });
     }
 }
