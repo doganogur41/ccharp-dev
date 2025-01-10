@@ -210,29 +210,29 @@ class Program
         yardimlar.ForEach(y => Console.WriteLine($"{y.YardimTuru} - {y.Konum} - {y.TarihSaat}"));
     }
     static void ProjedenCik()
-{
-    var gonullu = gonulluler.FirstOrDefault(g => g.Ad == mevcutKullanici.KullaniciAdi);
-    if (gonullu == null || !gonullu.KatildigiProjeler.Any())
     {
-        Console.WriteLine("Henüz katıldığınız bir proje yok.");
-        return;
-    }
+        var gonullu = gonulluler.FirstOrDefault(g => g.Ad == mevcutKullanici.KullaniciAdi);
+        if (gonullu == null || !gonullu.KatildigiProjeler.Any())
+        {
+            Console.WriteLine("Henüz katıldığınız bir proje yok.");
+            return;
+        }
 
-    Console.WriteLine("Katıldığınız projeler:");
-    gonullu.KatildigiProjeler.ForEach(p => Console.WriteLine($"{gonullu.KatildigiProjeler.IndexOf(p) + 1}. {p.Ad} - {p.Aciklama}"));
+        Console.WriteLine("Katıldığınız projeler:");
+        gonullu.KatildigiProjeler.ForEach(p => Console.WriteLine($"{gonullu.KatildigiProjeler.IndexOf(p) + 1}. {p.Ad} - {p.Aciklama}"));
 
-    Console.Write("\nÇıkmak istediğiniz proje numarasını girin: ");
-    if (int.TryParse(Console.ReadLine(), out var projeIndex) && projeIndex >= 1 && projeIndex <= gonullu.KatildigiProjeler.Count)
-    {
-        var proje = gonullu.KatildigiProjeler[projeIndex - 1];
-        gonullu.KatildigiProjeler.Remove(proje);
-        Console.WriteLine($"{proje.Ad} projesinden çıkıldı.");
+        Console.Write("\nÇıkmak istediğiniz proje numarasını girin: ");
+        if (int.TryParse(Console.ReadLine(), out var projeIndex) && projeIndex >= 1 && projeIndex <= gonullu.KatildigiProjeler.Count)
+        {
+            var proje = gonullu.KatildigiProjeler[projeIndex - 1];
+            gonullu.KatildigiProjeler.Remove(proje);
+            Console.WriteLine($"{proje.Ad} projesinden çıkıldı.");
+        }
+        else
+        {
+            Console.WriteLine("Geçersiz proje numarası.");
+        }
     }
-    else
-    {
-        Console.WriteLine("Geçersiz proje numarası.");
-    }
-}
 
     interface IKullanici  //soyutlama 
     {
@@ -254,7 +254,7 @@ class Program
         }
     }
 
-    class AdminKullanici : Kullanici    //kalıtım // polimorfizm
+    class AdminKullanici : Kullanici    //kalıtım // 
     {
         public override void KullaniciBilgileriniGoster()
         {
@@ -270,11 +270,11 @@ class Program
 
     }
 
-   public class Gonullu : IKullanici  //kalıtım //polimorfizm
+    public class Gonullu : IKullanici  //kalıtım 
     {
         public string KullaniciAdi => Ad;
         public string Ad { get; }
-        public List<SosyalSorumlulukProjesi> KatildigiProjeler { get; } = new List<SosyalSorumlulukProjesi>();
+        public List<SosyalSorumlulukProjesi> KatildigiProjeler { get; } = new List<SosyalSorumlulukProjesi>(); //Enkapsülasyon 
         string IKullanici.KullaniciAdi { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         public string Sifre { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
@@ -320,7 +320,13 @@ class Program
         {
             new SosyalSorumlulukProjesi { Ad = "Çevre Temizliği", Aciklama = "Mahallemizde çevre temizliği yapmak." },
             new SosyalSorumlulukProjesi { Ad = "Yardım Kampanyası", Aciklama = "Kış aylarında ihtiyaç sahiplerine giysi yardımı yapmak." },
-            new SosyalSorumlulukProjesi { Ad = "Hayvan Barınağı Ziyareti", Aciklama = "Hayvan barınağındaki dostlarımıza mama vermek." }
+            new SosyalSorumlulukProjesi { Ad = "Hayvan Barınağı Ziyareti", Aciklama = "Hayvan barınağındaki dostlarımıza mama vermek." },
+            new SosyalSorumlulukProjesi { Ad = "Fidan Ekimi", Aciklama = "Doğal yaşam ortamımızı arttırmak." },
+            new SosyalSorumlulukProjesi { Ad = "Huzurevi Ziyareti", Aciklama = "Büyüklerimizin yanında olmak." },
+
+
         });
     }
 }
+
+
