@@ -42,8 +42,9 @@ class Program
             Console.WriteLine("4. Katıldığınız Projeleri Gör");
             Console.WriteLine("5. Yardım Teklifi Ekle");
             Console.WriteLine("6. Yaptığınız Yardım Taleplerini Gör");
-            Console.WriteLine("7. ProjedenÇık");
-            Console.WriteLine("8. Çıkış");
+            Console.WriteLine("7. Geri gelme");
+            Console.WriteLine("8. ProjedenÇık");
+            Console.WriteLine("9. Çıkış");
 
 
 
@@ -57,8 +58,9 @@ class Program
                 case "4": KatildiginizProjeleriGor(); break;
                 case "5": YardimTeklifiEkle(); break;
                 case "6": YaptiginizYardimTalepleriniGor(); break;
-                case "7": ProjedenCik(); break;
-                case "8": return;
+                case "7": GeriGel(); break;
+                case "8": ProjedenCik(); break;
+                case "9": return;
                 default: Console.WriteLine("Geçersiz seçenek. Tekrar deneyin."); break;
             }
         }
@@ -232,7 +234,7 @@ class Program
         }
     }
 
-   public interface IKullanici  //soyutlama 
+    interface IKullanici  //soyutlama 
     {
         string KullaniciAdi { get; set; }
         string Sifre { get; set; }
@@ -245,14 +247,14 @@ class Program
         public string Sifre { get; set; }
 
         // Kullanıcı bilgilerini gösterme
-        public virtual void KullaniciBilgileriniGoster() //polimorfizm
+        public virtual void KullaniciBilgileriniGoster()
         {
             Console.WriteLine($"Kullanıcı Adı: {KullaniciAdi}");
             Console.WriteLine("Rol: Kullanıcı");
         }
     }
 
-    class AdminKullanici : Kullanici    //kalıtım // 
+    class AdminKullanici : Kullanici    //kalıtım // polimorfizm
     {
         public override void KullaniciBilgileriniGoster()
         {
@@ -268,11 +270,11 @@ class Program
 
     }
 
-    public class Gonullu : IKullanici  //kalıtım 
+    public class Gonullu : IKullanici  //kalıtım //polimorfizm
     {
         public string KullaniciAdi => Ad;
         public string Ad { get; }
-        public List<SosyalSorumlulukProjesi> KatildigiProjeler { get; } = new List<SosyalSorumlulukProjesi>(); //Enkapsülasyon 
+        public List<SosyalSorumlulukProjesi> KatildigiProjeler { get; } = new List<SosyalSorumlulukProjesi>();
         string IKullanici.KullaniciAdi { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         public string Sifre { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
@@ -319,12 +321,9 @@ class Program
             new SosyalSorumlulukProjesi { Ad = "Çevre Temizliği", Aciklama = "Mahallemizde çevre temizliği yapmak." },
             new SosyalSorumlulukProjesi { Ad = "Yardım Kampanyası", Aciklama = "Kış aylarında ihtiyaç sahiplerine giysi yardımı yapmak." },
             new SosyalSorumlulukProjesi { Ad = "Hayvan Barınağı Ziyareti", Aciklama = "Hayvan barınağındaki dostlarımıza mama vermek." },
-            new SosyalSorumlulukProjesi { Ad = "Fidan Ekimi", Aciklama = "Doğal yaşam ortamımızı arttırmak." },
+             new SosyalSorumlulukProjesi { Ad = "Fidan Ekimi", Aciklama = "Doğal yaşam ortamımızı arttırmak." },
             new SosyalSorumlulukProjesi { Ad = "Huzurevi Ziyareti", Aciklama = "Büyüklerimizin yanında olmak." },
-
 
         });
     }
 }
-
-
