@@ -42,7 +42,7 @@ class Program
             Console.WriteLine("4. Katıldığınız Projeleri Gör");
             Console.WriteLine("5. Yardım Teklifi Ekle");
             Console.WriteLine("6. Yaptığınız Yardım Taleplerini Gör");
-            Console.WriteLine("7. Geri gelme");
+            Console.WriteLine("7. GeriGel");
             Console.WriteLine("8. ProjedenÇık");
             Console.WriteLine("9. Çıkış");
 
@@ -68,7 +68,13 @@ class Program
 
     private static void GeriGel()
     {
-        throw new NotImplementedException();
+          static void GeriGel()
+        {
+            // Önceki menüye geri dönme işlemi yapılabilir
+            mevcutKullanici = null; // Kullanıcıyı sıfırlayarak çıkış yapılabilir
+            Console.WriteLine("Geri dönüldü.");
+        }
+
     }
 
     static void GirisYap()
@@ -320,10 +326,7 @@ class Program
         {
             new SosyalSorumlulukProjesi { Ad = "Çevre Temizliği", Aciklama = "Mahallemizde çevre temizliği yapmak." },
             new SosyalSorumlulukProjesi { Ad = "Yardım Kampanyası", Aciklama = "Kış aylarında ihtiyaç sahiplerine giysi yardımı yapmak." },
-            new SosyalSorumlulukProjesi { Ad = "Hayvan Barınağı Ziyareti", Aciklama = "Hayvan barınağındaki dostlarımıza mama vermek." },
-             new SosyalSorumlulukProjesi { Ad = "Fidan Ekimi", Aciklama = "Doğal yaşam ortamımızı arttırmak." },
-            new SosyalSorumlulukProjesi { Ad = "Huzurevi Ziyareti", Aciklama = "Büyüklerimizin yanında olmak." },
-
+            new SosyalSorumlulukProjesi { Ad = "Hayvan Barınağı Ziyareti", Aciklama = "Hayvan barınağındaki dostlarımıza mama vermek." }
         });
     }
 }
