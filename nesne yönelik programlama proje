@@ -68,7 +68,7 @@ class Program
 
     private static void GeriGel()
     {
-          static void GeriGel()
+        static void GeriGel()
         {
             // Önceki menüye geri dönme işlemi yapılabilir
             mevcutKullanici = null; // Kullanıcıyı sıfırlayarak çıkış yapılabilir
@@ -77,19 +77,45 @@ class Program
 
     }
 
+
+
+    static string ReadPassword()
+    {
+        string password = string.Empty;
+        ConsoleKeyInfo keyInfo;
+
+        do
+        {
+            keyInfo = Console.ReadKey(intercept: true); // Karakter ekranda görünmeyecek
+            if (keyInfo.Key != ConsoleKey.Backspace && keyInfo.Key != ConsoleKey.Enter)
+            {
+                password += keyInfo.KeyChar;
+                Console.Write("*"); // Yıldız basılır
+            }
+            else if (keyInfo.Key == ConsoleKey.Backspace && password.Length > 0)
+            {
+                password = password.Substring(0, password.Length - 1);
+                Console.Write("\b \b"); // Karakteri geri al ve sil
+            }
+        }
+        while (keyInfo.Key != ConsoleKey.Enter); // Enter'a basılana kadar devam et
+
+        Console.WriteLine(); // Şifre girişinden sonra yeni satıra geç
+        return password;
+    }
+
     static void GirisYap()
     {
         Console.Write("Kullanıcı Adı: ");
         var kullaniciAdi = Console.ReadLine();
         Console.Write("Şifre: ");
-        string? sifre = Console.ReadLine();
+        string sifre = ReadPassword(); // Şifre yıldızlarla görünür
 
         var kullanici = kullanicilar.FirstOrDefault(k => k.KullaniciAdi == kullaniciAdi && k.Sifre == sifre);
 
         if (kullanici != null)
         {
             mevcutKullanici = kullanici;
-            Console.WriteLine($"Hoş geldiniz, {kullaniciAdi}!");
         }
         else
         {
@@ -97,7 +123,7 @@ class Program
         }
     }
 
-    static void KayitOl()  //soyutlama
+    static void KayitOl()
     {
         Console.Write("Kullanıcı Adı (En az bir büyük harf ve bir rakam içermeli): ");
         var kullaniciAdi = Console.ReadLine();
@@ -116,7 +142,7 @@ class Program
         }
 
         Console.Write("Şifre (En az 8 karakter olmalı): ");
-        var sifre = Console.ReadLine();
+        string sifre = ReadPassword(); // Şifre yıldızlarla görünür
 
         if (sifre.Length < 8)
         {
