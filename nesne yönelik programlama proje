@@ -71,7 +71,7 @@ class Program
         static void GeriGel()
         {
             // Önceki menüye geri dönme işlemi yapılabilir
-            mevcutKullanici = null; // Kullanıcıyı sıfırlayarak çıkış yapılabilir
+            mevcutKullanici = null; 
             Console.WriteLine("Geri dönüldü.");
         }
 
@@ -98,9 +98,8 @@ class Program
                 Console.Write("\b \b"); // Karakteri geri al ve sil
             }
         }
-        while (keyInfo.Key != ConsoleKey.Enter); // Enter'a basılana kadar devam et
-
-        Console.WriteLine(); // Şifre girişinden sonra yeni satıra geç
+        while (keyInfo.Key != ConsoleKey.Enter); 
+        Console.WriteLine(); 
         return password;
     }
 
@@ -286,7 +285,7 @@ class Program
         }
     }
 
-    class AdminKullanici : Kullanici    //kalıtım // polimorfizm
+    class AdminKullanici : Kullanici    //kalıtım 
     {
         public override void KullaniciBilgileriniGoster()
         {
@@ -302,7 +301,7 @@ class Program
 
     }
 
-    public class Gonullu : IKullanici  //kalıtım //polimorfizm
+    public class Gonullu : IKullanici  //kalıtım 
     {
         public string KullaniciAdi => Ad;
         public string Ad { get; }
