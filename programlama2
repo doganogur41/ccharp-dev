@@ -1,0 +1,262 @@
+#include <iostream>
+#include <vector>
+#include <iomanip>
+#include <string>
+#include <ctime>
+#include <map>
+
+using namespace std;
+
+int generateOrderId() {
+    static int id = 1000;
+    return id++;
+}
+
+struct Coffee {
+    string name;
+    string description;
+    double basePrice;
+};
+
+struct Order {
+    int orderId;
+    Coffee coffee;
+    string size;
+    double price;
+    time_t timestamp;
+    string username;  // Kullanıcı adı eklendi
+};
+
+class CoffeeShop {
+private:
+    vector<Coffee> menu;
+    vector<Order> orders;
+    map<string, string> users;
+    string currentUser;
+    bool isLoggedIn;
+
+public:
+    CoffeeShop() : isLoggedIn(false) {
+        menu.push_back({"Espresso", "Yoğun ve sert bir kahve", 15.0});
+        menu.push_back({"Latte", "Sütlü ve yumuşak içimli", 18.0});
+        menu.push_back({"Cappuccino", "Köpüklü espresso ve süt", 17.0});
+        menu.push_back({"Americano", "Sıcak su ile seyreltilmiş espresso", 16.0});
+        menu.push_back({"Mocha", "Çikolata aromalı kahve", 20.0});
+
+        users["admin"] = "1234";
+        users["ahmet"] = "pass1";
+        users["ayse"] = "coffee";
+    }
+
+    void authMenu() {
+        int choice;
+        do {
+            cout << "\n==== ☕ GİRİŞ / KAYIT ====\n";
+            cout << "1. Giriş Yap\n";
+            cout << "2. Kayıt Ol\n";
+            cout << "0. Çıkış\n";
+            cout << "Seçiminiz: ";
+            cin >> choice;
+
+            switch (choice) {
+                case 1: login(); break;
+                case 2: registerUser(); break;
+                case 0:
+                    cout << "👋 Uygulama kapatılıyor...\n";
+                    exit(0);
+                default:
+                    cout << "❌ Geçersiz seçim!\n";
+            }
+        } while (!isLoggedIn);
+    }
+
+    void login() {
+        string username, password;
+        int attempts = 3;
+
+        while (attempts-- > 0) {
+            cout << "\n🔐 Giriş\n";
+            cout << "Kullanıcı Adı: ";
+            cin >> username;
+            cout << "Şifre: ";
+            cin >> password;
+
+            if (users.count(username) && users[username] == password) {
+                isLoggedIn = true;
+                currentUser = username;
+                cout << "✅ Giriş başarılı! Hoş geldin, " << currentUser << "!\n";
+                return;
+            } else {
+                cout << "❌ Hatalı kullanıcı adı veya şifre. Kalan deneme: " << attempts << endl;
+            }
+        }
+
+        cout << "🚫 Giriş başarısız. Ana menüye dönülüyor...\n";
+    }
+
+    void registerUser() {
+        string username, password;
+
+        cout << "\n📝 Kayıt Ol\n";
+        cout << "Yeni Kullanıcı Adı: ";
+        cin >> username;
+
+        if (users.count(username)) {
+            cout << "⚠️ Bu kullanıcı adı zaten alınmış.\n";
+            return;
+        }
+
+        cout << "Şifre Belirleyin: ";
+        cin >> password;
+
+        users[username] = password;
+
+        cout << "✅ Kayıt başarılı! Şimdi giriş yapabilirsiniz.\n";
+    }
+
+    void displayMenu() {
+        cout << "\n📋 --- KAHVE MENÜSÜ ---\n";
+        for (size_t i = 0; i < menu.size(); ++i) {
+            cout << i + 1 << ". " << menu[i].name 
+                 << " - " << menu[i].basePrice << " TL"
+                 << "\n   Açıklama: " << menu[i].description << endl;
+        }
+    }
+
+    double getSizeMultiplier(int sizeOption) {
+        switch (sizeOption) {
+            case 1: return 1.0;
+            case 2: return 1.2;
+            case 3: return 1.5;
+            default: return 1.0;
+        }
+    }
+
+    void takeOrder() {
+        if (!isLoggedIn) {
+            cout << "⚠️ Sipariş vermek için giriş yapmalısınız.\n";
+            return;
+        }
+
+        int choice, sizeChoice;
+        string sizeLabel;
+
+        displayMenu();
+
+        cout << "\n☕ Lütfen kahve numarasını seçin: ";
+        cin >> choice;
+
+        if (choice < 1 || choice > menu.size()) {
+            cout << "❌ Geçersiz seçim!\n";
+            return;
+        }
+
+        cout << "\nBoyut Seçin:\n";
+        cout << "1. Küçük\n";
+        cout << "2. Orta\n";
+        cout << "3. Büyük\n";
+        cout << "Seçiminiz (1-3): ";
+        cin >> sizeChoice;
+
+        switch (sizeChoice) {
+            case 1: sizeLabel = "Küçük"; break;
+            case 2: sizeLabel = "Orta"; break;
+            case 3: sizeLabel = "Büyük"; break;
+            default:
+                cout << "❌ Geçersiz seçim!\n";
+                return;
+        }
+
+        double multiplier = getSizeMultiplier(sizeChoice);
+        double finalPrice = menu[choice - 1].basePrice * multiplier;
+        int orderId = generateOrderId();
+        time_t now = time(0);
+
+        orders.push_back({orderId, menu[choice - 1], sizeLabel, finalPrice, now, currentUser});
+
+        cout << "✅ Sipariş Alındı: " << menu[choice - 1].name << " (" << sizeLabel 
+             << ") - " << fixed << setprecision(2) << finalPrice 
+             << " TL (Sipariş No: " << orderId << ")\n";
+    }
+
+    void showOrders() {
+        if (orders.empty()) {
+            cout << "🚫 Henüz sipariş yok.\n";
+            return;
+        }
+
+        cout << "\n📦 --- SİPARİŞLER ---\n";
+        double total = 0;
+
+        for (const auto& order : orders) {
+            if (order.username == currentUser) {
+                char* dt = ctime(&order.timestamp);
+                cout << "🔹 Sipariş No: " << order.orderId << endl;
+                cout << "    Ürün: " << order.coffee.name << " (" << order.size << ")\n";
+                cout << "    Fiyat: " << order.price << " TL\n";
+                cout << "    Zaman: " << dt;
+                cout << "-----------------------------\n";
+                total += order.price;
+            }
+        }
+
+        cout << "💰 Toplam: " << fixed << setprecision(2) << total << " TL\n";
+    }
+
+    void cancelOrder() {
+        if (orders.empty()) {
+            cout << "❌ İptal edilecek sipariş yok.\n";
+            return;
+        }
+
+        int id;
+        cout << "İptal etmek istediğiniz sipariş numarasını girin: ";
+        cin >> id;
+
+        for (auto it = orders.begin(); it != orders.end(); ++it) {
+            if (it->orderId == id && it->username == currentUser) {
+                cout << "✅ " << it->coffee.name << " siparişi iptal edildi.\n";
+                orders.erase(it);
+                return;
+            }
+        }
+
+        cout << "❌ Sipariş bulunamadı.\n";
+    }
+
+    void run() {
+        authMenu();
+
+        int option;
+        do {
+            cout << "\n===== ☕ Kahve Sipariş Uygulaması =====\n";
+            cout << "1. Menüyü Görüntüle\n";
+            cout << "2. Sipariş Ver\n";
+            cout << "3. Siparişleri Görüntüle\n";
+            cout << "4. Sipariş İptali\n";
+            cout << "5. Geçmiş Siparişler\n";  // Yeni seçenek eklendi
+            cout << "0. Çıkış\n";
+            cout << "Seçiminiz: ";
+            cin >> option;
+
+            switch (option) {
+                case 1: displayMenu(); break;
+                case 2: takeOrder(); break;
+                case 3: showOrders(); break;
+                case 4: cancelOrder(); break;
+                case 5: showOrders(); break;  // Geçmiş siparişler seçeneği burada çağrıldı
+                case 0:
+                    cout << "👋 Görüşmek üzere, " << currentUser << ". Uygulama kapatılıyor.\n";
+                    break;
+                default:
+                    cout << "❗ Geçersiz seçim!\n";
+            }
+        } while (option != 0);
+    }
+};
+
+int main() {
+    CoffeeShop app;
+    app.run();
+    return 0;
+}
