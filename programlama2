@@ -24,7 +24,7 @@ struct Order {
     string size;
     double price;
     time_t timestamp;
-    string username;
+    string username;  // Kullanici adi eklendi
 };
 
 class CoffeeShop {
@@ -37,11 +37,11 @@ private:
 
 public:
     CoffeeShop() : isLoggedIn(false) {
-        menu.push_back({"Espresso", "Yoğun ve sert bir kahve", 15.0});
-        menu.push_back({"Latte", "Sütlü ve yumuşak içimli", 18.0});
-        menu.push_back({"Cappuccino", "Köpüklü espresso ve süt", 17.0});
-        menu.push_back({"Americano", "Sıcak su ile seyreltilmiş espresso", 16.0});
-        menu.push_back({"Mocha", "Çikolata aromalı kahve", 20.0});
+        menu.push_back({"Espresso", "Yogun ve sert bir kahve", 15.0});
+        menu.push_back({"Latte", "Sutlu ve yumusak icimli", 18.0});
+        menu.push_back({"Cappuccino", "Kopuklu espresso ve sut", 17.0});
+        menu.push_back({"Americano", "Sicak su ile seyreltmis espresso", 16.0});
+        menu.push_back({"Mocha", "Cikolata aromali kahve", 20.0});
 
         users["admin"] = "1234";
         users["ahmet"] = "pass1";
@@ -51,21 +51,21 @@ public:
     void authMenu() {
         int choice;
         do {
-            cout << "\n==== ? GİRİŞ / KAYIT ====" << endl;
-            cout << "1. Giriş Yap" << endl;
-            cout << "2. Kayıt Ol" << endl;
-            cout << "0. Çıkış" << endl;
-            cout << "Seçiminiz: ";
+            cout << "\n==== ? GIRIS / KAYIT ====\n";
+            cout << "1. Giris Yap\n";
+            cout << "2. Kayit Ol\n";
+            cout << "0. Cikis\n";
+            cout << "Seciminiz: ";
             cin >> choice;
 
             switch (choice) {
                 case 1: login(); break;
                 case 2: registerUser(); break;
                 case 0:
-                    cout << "?? Uygulama kapatılıyor..." << endl;
+                    cout << "?? Uygulama kapatiliyor...\n";
                     exit(0);
                 default:
-                    cout << "? Geçersiz seçim!" << endl;
+                    cout << "? Gecersiz secim!\n";
             }
         } while (!isLoggedIn);
     }
@@ -75,50 +75,50 @@ public:
         int attempts = 3;
 
         while (attempts-- > 0) {
-            cout << "\n?? Giriş" << endl;
-            cout << "Kullanıcı Adı: ";
+            cout << "\n?? Giris\n";
+            cout << "Kullanici Adi: ";
             cin >> username;
-            cout << "Şifre: ";
+            cout << "Sifre: ";
             cin >> password;
 
             if (users.count(username) && users[username] == password) {
                 isLoggedIn = true;
                 currentUser = username;
-                cout << "? Giriş başarılı! Hoş geldin, " << currentUser << "!" << endl;
+                cout << "? Giris basarili! Hos geldin, " << currentUser << "!\n";
                 return;
             } else {
-                cout << "? Hatalı kullanıcı adı veya şifre. Kalan deneme: " << attempts << endl;
+                cout << "? Hatali kullanici adi veya sifre. Kalan deneme: " << attempts << "\n";
             }
         }
 
-        cout << "?? Giriş başarısız. Ana menüye dönülüyor..." << endl;
+        cout << "?? Giris basarisiz. Ana menuye donuluyor...\n";
     }
 
     void registerUser() {
         string username, password;
 
-        cout << "\n?? Kayıt Ol" << endl;
-        cout << "Yeni Kullanıcı Adı: ";
+        cout << "\n?? Kayit Ol\n";
+        cout << "Yeni Kullanici Adi: ";
         cin >> username;
 
         if (users.count(username)) {
-            cout << "?? Bu kullanıcı adı zaten alınmış." << endl;
+            cout << "?? Bu kullanici adi zaten alinmis.\n";
             return;
         }
 
-        cout << "Şifre Belirleyin: ";
+        cout << "Sifre Belirleyin: ";
         cin >> password;
 
         users[username] = password;
-        cout << "? Kayıt başarılı! Şimdi giriş yapabilirsiniz." << endl;
+        cout << "? Kayit basarili! Simdi giris yapabilirsiniz.\n";
     }
 
     void displayMenu() {
-        cout << "\n?? --- KAHVE MENÜSÜ ---" << endl;
+        cout << "\n?? --- KAHVE MENUSU ---\n";
         for (size_t i = 0; i < menu.size(); ++i) {
             cout << i + 1 << ". " << menu[i].name 
-                 << " - " << menu[i].basePrice << " TL" << endl;
-            cout << "   Açıklama: " << menu[i].description << endl;
+                 << " - " << menu[i].basePrice << " TL\n";
+            cout << "   Aciklama: " << menu[i].description << "\n";
         }
     }
 
@@ -133,7 +133,7 @@ public:
 
     void takeOrder() {
         if (!isLoggedIn) {
-            cout << "?? Sipariş vermek için giriş yapmalısınız." << endl;
+            cout << "?? Siparis vermek icin giris yapmalisiniz.\n";
             return;
         }
 
@@ -141,26 +141,26 @@ public:
         string sizeLabel;
         displayMenu();
 
-        cout << "\n? Lütfen kahve numarasını seçin: ";
+        cout << "\n? Lutfen kahve numarasini secin: ";
         cin >> choice;
         if (choice < 1 || choice > menu.size()) {
-            cout << "? Geçersiz seçim!" << endl;
+            cout << "? Gecersiz secim!\n";
             return;
         }
 
-        cout << "\nBoyut Seçin:" << endl;
-        cout << "1. Küçük" << endl;
-        cout << "2. Orta" << endl;
-        cout << "3. Büyük" << endl;
-        cout << "Seçiminiz (1-3): ";
+        cout << "\nBoyut Secin:" << "\n";
+        cout << "1. Kucuk\n";
+        cout << "2. Orta\n";
+        cout << "3. Buyuk\n";
+        cout << "Seciminiz (1-3): ";
         cin >> sizeChoice;
 
         switch (sizeChoice) {
-            case 1: sizeLabel = "Küçük"; break;
+            case 1: sizeLabel = "Kucuk"; break;
             case 2: sizeLabel = "Orta"; break;
-            case 3: sizeLabel = "Büyük"; break;
+            case 3: sizeLabel = "Buyuk"; break;
             default:
-                cout << "? Geçersiz seçim!" << endl;
+                cout << "? Gecersiz secim!\n";
                 return;
         }
 
@@ -170,62 +170,61 @@ public:
         time_t now = time(0);
         orders.push_back({orderId, menu[choice - 1], sizeLabel, finalPrice, now, currentUser});
 
-        cout << "? Sipariş Alındı: " << menu[choice - 1].name 
+        cout << "? Siparis Alindi: " << menu[choice - 1].name 
              << " (" << sizeLabel << ") - " 
              << fixed << setprecision(2) << finalPrice 
-             << " TL (Sipariş No: " << orderId << ")" << endl;
+             << " TL (Siparis No: " << orderId << ")\n";
     }
 
     void showOrders() {
         if (orders.empty()) {
-            cout << "?? Henüz sipariş yok." << endl;
+            cout << "?? Henuz siparis yok.\n";
             return;
         }
 
-        cout << "\n?? --- SİPARİŞLER ---" << endl;
+        cout << "\n?? --- SIPARISLER ---\n";
         double total = 0.0;
 
-        // C++98 uyumlu index-tabanlı döngü
         for (size_t i = 0; i < orders.size(); ++i) {
             const Order& order = orders[i];
             if (order.username != currentUser) continue;
 
             char* dt = ctime(&order.timestamp);
-            cout << "?? Sipariş No: " << order.orderId << endl;
-            cout << "    Ürün: " << order.coffee.name 
-                 << " (" << order.size << ")" << endl;
+            cout << "?? Siparis No: " << order.orderId << "\n";
+            cout << "    Urun: " << order.coffee.name 
+                 << " (" << order.size << ")\n";
             cout << "    Fiyat: " << fixed << setprecision(2) 
-                 << order.price << " TL" << endl;
+                 << order.price << " TL\n";
             cout << "    Zaman: " << dt;
-            cout << "-----------------------------" << endl;
+            cout << "-----------------------------\n";
 
             total += order.price;
         }
 
         cout << "?? Toplam: " << fixed << setprecision(2) 
-             << total << " TL" << endl;
+             << total << " TL\n";
     }
 
     void cancelOrder() {
         if (orders.empty()) {
-            cout << "? İptal edilecek sipariş yok." << endl;
+            cout << "? Iptal edilecek siparis yok.\n";
             return;
         }
 
         int id;
-        cout << "İptal etmek istediğiniz sipariş numarasını girin: ";
+        cout << "Iptal etmek istediginiz siparis numarasini girin: ";
         cin >> id;
 
         for (size_t i = 0; i < orders.size(); ++i) {
             if (orders[i].orderId == id && orders[i].username == currentUser) {
                 cout << "? " << orders[i].coffee.name 
-                     << " siparişi iptal edildi." << endl;
+                     << " siparisi iptal edildi.\n";
                 orders.erase(orders.begin() + i);
                 return;
             }
         }
 
-        cout << "? Sipariş bulunamadı." << endl;
+        cout << "? Siparis bulunamadi.\n";
     }
 
     void run() {
@@ -233,14 +232,14 @@ public:
 
         int option;
         do {
-            cout << "\n===== ? Kahve Sipariş Uygulaması =====" << endl;
-            cout << "1. Menüyü Görüntüle" << endl;
-            cout << "2. Sipariş Ver" << endl;
-            cout << "3. Siparişleri Görüntüle" << endl;
-            cout << "4. Sipariş İptali" << endl;
-            cout << "5. Geçmiş Siparişler" << endl;
-            cout << "0. Çıkış" << endl;
-            cout << "Seçiminiz: ";
+            cout << "\n===== ? Kahve Siparis Uygulamasi =====\n";
+            cout << "1. Menuyu Goruntule\n";
+            cout << "2. Siparis Ver\n";
+            cout << "3. Siparisleri Goruntule\n";
+            cout << "4. Siparis Iptali\n";
+            cout << "5. Gecmis Siparisler\n";
+            cout << "0. Cikis\n";
+            cout << "Seciminiz: ";
             cin >> option;
 
             switch (option) {
@@ -250,11 +249,11 @@ public:
                 case 4: cancelOrder(); break;
                 case 5: showOrders(); break;
                 case 0:
-                    cout << "?? Görüşmek üzere, " << currentUser 
-                         << ". Uygulama kapatılıyor." << endl;
+                    cout << "?? Gorusmek uzere, " << currentUser 
+                         << ". Uygulama kapatiliyor.\n";
                     break;
                 default:
-                    cout << "? Geçersiz seçim!" << endl;
+                    cout << "? Gecersiz secim!\n";
             }
         } while (option != 0);
     }
